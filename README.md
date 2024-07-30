@@ -22,8 +22,6 @@
 
 ## Установка
 
-1. `git clone <URL репозитория>`
-2. Установите зависимости:
    - `npm install`
    - `composer update`
 
