@@ -160,14 +160,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateCategory: function updateCategory() {
-      var _this = this;
       axios.put('/api/category/' + this.categoryId + '/change-category/' + this.selected).then(function (res) {
-        if (res.data.status) {
-          alert(res.data.message);
-          _this.$emit('loadCatalog');
-        } else {
-          alert(res.data.message);
-        }
+        alert('Категория-родитель успешна изменена, пожалуйста перезагрузите страницу');
+      })["catch"](function (err) {
+        alert('Произошла ошибка');
       });
     }
   }

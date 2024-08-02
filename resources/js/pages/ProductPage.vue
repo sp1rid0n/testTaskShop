@@ -27,7 +27,6 @@
             categoryProduct: [],
             categories: [],
             selected: '',
-            not_found: false
         }),
         mounted() {
             this.loadProduct(this.$route.params.id);
@@ -41,7 +40,7 @@
                     this.categoryProduct = res.data.category;
                 })
                 .catch(err => {
-                    this.not_found = true;
+                    
                 })
             },
 
@@ -58,15 +57,12 @@
             updateCategory() {
                 axios.put('/api/products/' + this.product.id + '/move-to-category/' + this.selected)
                     .then(res => {
-                        
-                    if (res.data.status) {
-                        alert(res.data.message);
-                        this.loadProduct(this.product.id);
-                    } else {
-                        alert(res.data.message);
-                    }
-                });
-            }
+                        alert('Категория-родитель успешна изменена, пожалуйста перезагрузите страницу');
+                    })
+                    .catch(err => {
+                        alert('Произошла ошибка');
+                    });
+                }
         }
     }
 </script>

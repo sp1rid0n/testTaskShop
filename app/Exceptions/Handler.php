@@ -42,7 +42,7 @@ class Handler extends ExceptionHandler
             return response()->json([
                 'error' => $e->getMessage(),
                 'code' => $e->getCode(),
-            ], $e->getStatusCode());
+            ]);
         }
 
         // В противном случае, вызываем родительский метод render

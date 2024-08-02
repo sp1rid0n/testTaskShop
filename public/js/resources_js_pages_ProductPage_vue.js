@@ -19,8 +19,7 @@ __webpack_require__.r(__webpack_exports__);
       product: [],
       categoryProduct: [],
       categories: [],
-      selected: '',
-      not_found: false
+      selected: ''
     };
   },
   mounted: function mounted() {
@@ -33,9 +32,7 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/product/' + id).then(function (res) {
         _this.product = res.data;
         _this.categoryProduct = res.data.category;
-      })["catch"](function (err) {
-        _this.not_found = true;
-      });
+      })["catch"](function (err) {});
     },
     loadCategories: function loadCategories() {
       var _this2 = this;
@@ -44,14 +41,10 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {});
     },
     updateCategory: function updateCategory() {
-      var _this3 = this;
       axios__WEBPACK_IMPORTED_MODULE_0__["default"].put('/api/products/' + this.product.id + '/move-to-category/' + this.selected).then(function (res) {
-        if (res.data.status) {
-          alert(res.data.message);
-          _this3.loadProduct(_this3.product.id);
-        } else {
-          alert(res.data.message);
-        }
+        alert('Категория-родитель успешна изменена, пожалуйста перезагрузите страницу');
+      })["catch"](function (err) {
+        alert('Произошла ошибка');
       });
     }
   }

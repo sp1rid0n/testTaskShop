@@ -7,6 +7,7 @@ use App\Models\Category;
 
 
 class CategoryController extends Controller {
+
     public function getCatalog() {
         try {
             $catalog = Category::whereNull('parent_id')
@@ -25,12 +26,11 @@ class CategoryController extends Controller {
     }
 
     public function index() {
-        try {
-            $categories = Category::get();
-            return $categories;
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
+        $categories = Category::get();
+        if ($categories == null) {
+            throw new \Exception('Product not found');
         }
+        return $categories;
     }
 
     public function changeParentCategory(int $categoryId, int $parentId) {
@@ -43,15 +43,9 @@ class CategoryController extends Controller {
             }
             $category->save();
 
-            return response()->json([
-                "status" => true,
-                "message" => "Родительская категория успешно изменена, пожалуйста перезагрузите страницу"
-            ])->setStatusCode(200);
+            return response()->setStatusCode(200);
         } catch (\Exception $e) {
-            return response()->json([
-                "status" => false,
-                "message" => $e
-            ])->setStatusCode(500);
+            throw new \Exception($e->getMessage());
         }
     }
 }

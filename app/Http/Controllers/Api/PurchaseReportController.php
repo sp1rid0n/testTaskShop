@@ -46,16 +46,10 @@ class PurchaseReportController extends Controller {
 
                 return Response::download($path, $filename, $headers);
             } else {
-                return response()->json([
-                    "status" => false,
-                    'message' => 'Unsupported format. Supported formats: json, csv'
-                ])->setStatusCode(400);
+                throw new \Exception('Unsupported format. Supported formats: json, csv');
             }
         } catch (\Exception $e) {
-            return response()->json([
-                "status" => false,
-                "message" => $e
-            ])->setStatusCode(500);
+            throw new \Exception($e->getMessage());
         }
     }
 }

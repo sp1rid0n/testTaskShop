@@ -26,12 +26,10 @@
             updateCategory() {
                 axios.put('/api/category/' + this.categoryId + '/change-category/' + this.selected)
                 .then(res => {
-                    if (res.data.status) {
-                        alert(res.data.message);
-                        this.$emit('loadCatalog');
-                    } else {
-                        alert(res.data.message);
-                    }
+                    alert('Категория-родитель успешна изменена, пожалуйста перезагрузите страницу');
+                })
+                .catch(err => {
+                    alert('Произошла ошибка');
                 });
             }
         }
