@@ -1,10 +1,12 @@
 <template>
     <div class="sortMenu">
-        <button @click="sortParam='priceMin'">Цена (от меньшей к большей)</button>
-        <button @click="sortParam='priceMax'">Цена (от большей к меньшей)</button>
+        <button @click.prevent="sortProducts('price', 'asc')">Цена (от меньшей к большей)</button>
+        <button @click.prevent="sortProducts('price', 'desc')">Цена (от большей к меньшей)</button><br>
+        <button @click.prevent="sortProducts('name', 'asc')">Название (от А до Я)</button>
+        <button @click.prevent="sortProducts('name', 'desc')">Название (от Я до А)</button>
     </div>
     <div class="cards">
-        <card v-for="product in sorted" 
+        <card v-for="product in sortedProducts" 
             :name="product.name"
             :price="product.price"
             :id="product.id"
@@ -12,7 +14,8 @@
     </div>
 </template>
 
-<script>
+<script>    
+    import axios from 'axios';
     import Card from './Card.vue';
     
     export default {
@@ -23,23 +26,36 @@
             products: {
                 type: Array,
                 default: []
+            },
+            categoryId: {
+                type: Number,
+                default: 0
             }
+
         },
         data: () => ({
-            sortParam: ""
+            sortField: '',
+            sortDirection: '',
+            sortedProducts: []
         }),
-        computed: {
-            sorted () {
-                switch(this.sortParam){
-                    case 'priceMin': return this.products.sort(sortByPriceMin);
-                    case 'priceMax': return this.products.sort(sortByPriceMax);
-                    default: return this.products;
-                }
+        mounted() {
+            this.sortedProducts = this.products;
+        },
+        methods: {
+            sortProducts(field, direction) {
+                axios.get('/api/products/sort', {
+                    params: {
+                        field: field,
+                        direction: direction,
+                        categoryId: this.categoryId
+                    }
+                })
+                .then(res => {
+                    this.sortedProducts = res.data;
+                })
             }
         }
     }
-    const sortByPriceMin = (d1, d2) => (d1.price >= d2.price) ? 1 : -1;
-    const sortByPriceMax = (d1, d2) => (d1.price <= d2.price) ? 1 : -1;
 </script>
 
 <style scoped>
@@ -49,7 +65,8 @@
     }
     .sortMenu {
         display: block;
-        width: 100%;
+        border: 1px solid gray;
+        margin-bottom: 10px;
     }
     button {
         margin: 5px;

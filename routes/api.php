@@ -17,10 +17,6 @@ use App\Http\Controllers\Api\PurchaseReportController;
 |
 */
 
-// Route::resource('categories', CategoryController::class);
-// Route::resource('products', ProductController::class);
-// Route::resource('purchaseReport', PurchaseReportController::class);
-
 Route::get('/categories', [CategoryController::class, 'index']);
 
 Route::get('/catalog', [CategoryController::class, 'getCatalog']);
@@ -30,3 +26,7 @@ Route::get('/reports/purchases/{format}', [PurchaseReportController::class, 'gen
 Route::get('/product/{id}', [ProductController::class, 'show']);
 
 Route::put('/products/{product}/move-to-category/{category}', [ProductController::class, 'moveToCategory']);
+
+Route::put('/category/{category}/change-category/{parent}', [CategoryController::class, 'changeParentCategory']);
+
+Route::get('/products/sort', [ProductController::class, 'sortProducts']);

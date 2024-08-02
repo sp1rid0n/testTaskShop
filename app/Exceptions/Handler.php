@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -32,6 +33,19 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        //
+       //
+    }
+
+    public function render($request, Throwable $e) {
+        if ($request->expectsJson()) {
+            // Возвращаем пользовательский JSON-ответ
+            return response()->json([
+                'error' => $e->getMessage(),
+                'code' => $e->getCode(),
+            ], $e->getStatusCode());
+        }
+
+        // В противном случае, вызываем родительский метод render
+        return parent::render($request, $e);
     }
 }

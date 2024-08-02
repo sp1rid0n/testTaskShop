@@ -1,5 +1,5 @@
 <template>
-        <List :categories="categories"></List>
+        <List :catalog="catalog" :categories="categories"></List>
 </template>
 
 <script>
@@ -11,18 +11,26 @@
             List,
         },
         data: () => ({
+            catalog: [],
             categories: [],
         }),
         mounted() {
+            this.loadCatalog();
             this.loadCategories();
         },
         methods: {
-            loadCategories() {
+            loadCatalog() {
                 axios.get('/api/catalog')
+                .then(res => {
+                    this.catalog = res.data;
+                })
+            },
+            loadCategories() {
+                axios.get('/api/categories')
                 .then(res => {
                     this.categories = res.data;
                 })
-            }
+            },
         },
     }
 </script>

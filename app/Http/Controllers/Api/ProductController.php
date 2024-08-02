@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
+
 class ProductController extends Controller {
 
     public function show($id)
@@ -22,7 +23,7 @@ class ProductController extends Controller {
         return $product;
     }
 
-    public function moveToCategory(Request $request, int $productId, int $categoryId) {
+    public function moveToCategory(int $productId, int $categoryId) {
         try {
             if (!$productId || !$categoryId) {
                 return response()->json([
@@ -39,11 +40,20 @@ class ProductController extends Controller {
                 "status" => true,
                 "message" => "Категория успешно изменена"
             ])->setStatusCode(200);
+
         } catch (\Exception $e) {
             return response()->json([
                 "status" => false,
                 "message" => $e
             ])->setStatusCode(500);
         }
+    }
+
+    public function sortProducts(Request $request) {
+        $field = $request->field; 
+        $direction = $request->direction;
+        $categoryId = $request->categoryId;
+        $products = Product::where('category_id', $categoryId)->orderBy($field, $direction)->get();
+        return $products;
     }
 }
