@@ -45,7 +45,6 @@ class Handler extends ExceptionHandler
             ]);
         }
 
-        // В противном случае, вызываем родительский метод render
         return parent::render($request, $e);
     }
 }

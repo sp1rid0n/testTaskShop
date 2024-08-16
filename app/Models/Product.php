@@ -14,4 +14,11 @@ class Product extends Model {
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+    public function changeCategory(Category $category) 
+    {
+        $product = Product::find($this->id);
+        $product->category_id = $category->id;
+        $product->save();
+    }
 }

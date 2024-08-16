@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -12,34 +13,22 @@ class ProductController extends Controller {
     public function show($id) {
         $product = Product::with('category')->find($id);
         if ($product == null) {
-            throw new \Exception('Product not found');
+            abort(404);
         }
-
         return $product;
     }
 
-    public function moveToCategory(int $productId, int $categoryId) {
-        try {
-            $product = Product::find($productId);
-            $product->category_id = $categoryId;
-            $product->save();
-
-            return response()->setStatusCode(200);
-
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
-        }
+    public function moveToCategory(Product $product, Category $category) {
+        $product->changeCategory($category);
+        return response()->setStatusCode(200);
     }
 
     public function sortProducts(Request $request) {
-        try {
-            $field = $request->field; 
-            $direction = $request->direction;
-            $categoryId = $request->categoryId;
-            $products = Product::where('category_id', $categoryId)->orderBy($field, $direction)->get();
-            return $products;
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
-        }
+        $field = $request->field; 
+        $direction = $request->direction;
+        $category = $request->category;
+        $products = Product::where('category_id', $category)->orderBy($field, $direction)->get();
+        return $products;
     }
 }
+  

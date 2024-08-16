@@ -1,6 +1,6 @@
 <template>
     <select v-model="selected">
-        <option v-for="option in categories" :value="option.id">
+        <option v-for="option in categories" :value="option">
             {{ option.name }}
         </option>
     </select>
@@ -14,17 +14,17 @@
                 type: Array,
                 default: []
             }, 
-            categoryId: {
-                type: Number,
-                default: 0
+            category: {
+                type: Object,
+                default: null
             }
         },
         data: () => ({
-            selected: '',
+            selected: null,
         }),
         methods: {
             updateCategory() {
-                axios.put('/api/category/' + this.categoryId + '/change-category/' + this.selected)
+                axios.put('/api/category/' + this.category + '/change-category/' + this.selected)
                 .then(res => {
                     alert('Категория-родитель успешна изменена, пожалуйста перезагрузите страницу');
                 })

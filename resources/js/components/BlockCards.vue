@@ -27,9 +27,9 @@
                 type: Array,
                 default: []
             },
-            categoryId: {
-                type: Number,
-                default: 0
+            category: {
+                type: Object,
+                default: null
             }
 
         },
@@ -47,7 +47,7 @@
                     params: {
                         field: field,
                         direction: direction,
-                        categoryId: this.categoryId
+                        category: this.category
                     }
                 })
                 .then(res => {

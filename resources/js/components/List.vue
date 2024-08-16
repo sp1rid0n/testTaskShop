@@ -2,12 +2,12 @@
     <ul v-for="category in catalog" :key="category.id">
         <li>
             {{ category.name }}
-            <FormChangeCategory :categories="categories" :categoryId="category.id"/>
+            <FormChangeCategory :categories="categories" :category="category"/>
         </li>
         <List v-if="category.children > []" :catalog="category.children" :categories="categories"></List>
         <BlockCards v-if="category.products > []" 
             :products="category.products" 
-            :categoryId="category.id" />
+            :category="category" />
     </ul>
 </template>
 

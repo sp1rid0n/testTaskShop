@@ -10,7 +10,7 @@
     </div>
     <div>
         <select v-model="selected">
-            <option v-for="option in categories" :value="option.id">
+            <option v-for="option in categories" :value="option">
                 {{ option.name }}
             </option>
         </select>
@@ -23,10 +23,10 @@
 
     export default {
         data: () => ({
-            product: [],
+            product: Object,
             categoryProduct: [],
             categories: [],
-            selected: '',
+            selected: null,
         }),
         mounted() {
             this.loadProduct(this.$route.params.id);
@@ -55,7 +55,7 @@
             },
 
             updateCategory() {
-                axios.put('/api/products/' + this.product.id + '/move-to-category/' + this.selected)
+                axios.put('/api/products/' + this.product + '/move-to-category/' + this.selected)
                     .then(res => {
                         alert('Категория-родитель успешна изменена, пожалуйста перезагрузите страницу');
                     })

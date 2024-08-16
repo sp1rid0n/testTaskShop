@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 class PurchaseReportController extends Controller {
     public function generateReport(Request $request, $format) {
         try {
-            $purchases = Purchase::purchasesLastMonth();
+            $purchases = Purchase::purchasesLastMonth()->get();
 
             if ($format === 'json') {
                 $filename = time() . '_file.json';

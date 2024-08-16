@@ -24,9 +24,9 @@ __webpack_require__.r(__webpack_exports__);
       type: Array,
       "default": []
     },
-    categoryId: {
-      type: Number,
-      "default": 0
+    category: {
+      type: Object,
+      "default": null
     }
   },
   data: function data() {
@@ -46,7 +46,7 @@ __webpack_require__.r(__webpack_exports__);
         params: {
           field: field,
           direction: direction,
-          categoryId: this.categoryId
+          category: this.category
         }
       }).then(function (res) {
         _this.sortedProducts = res.data;
@@ -148,19 +148,19 @@ __webpack_require__.r(__webpack_exports__);
       type: Array,
       "default": []
     },
-    categoryId: {
-      type: Number,
-      "default": 0
+    category: {
+      type: Object,
+      "default": null
     }
   },
   data: function data() {
     return {
-      selected: ''
+      selected: null
     };
   },
   methods: {
     updateCategory: function updateCategory() {
-      axios.put('/api/category/' + this.categoryId + '/change-category/' + this.selected).then(function (res) {
+      axios.put('/api/category/' + this.category + '/change-category/' + this.selected).then(function (res) {
         alert('Категория-родитель успешна изменена, пожалуйста перезагрузите страницу');
       })["catch"](function (err) {
         alert('Произошла ошибка');
@@ -388,7 +388,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.categories, function (option) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
-      value: option.id
+      value: option
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(option.name), 9 /* TEXT, PROPS */, _hoisted_1);
   }), 256 /* UNKEYED_FRAGMENT */))], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.selected]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
@@ -420,16 +420,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       key: category.id
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.name) + " ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_FormChangeCategory, {
       categories: $props.categories,
-      categoryId: category.id
-    }, null, 8 /* PROPS */, ["categories", "categoryId"])]), category.children > [] ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_List, {
+      category: category
+    }, null, 8 /* PROPS */, ["categories", "category"])]), category.children > [] ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_List, {
       key: 0,
       catalog: category.children,
       categories: $props.categories
     }, null, 8 /* PROPS */, ["catalog", "categories"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), category.products > [] ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_BlockCards, {
       key: 1,
       products: category.products,
-      categoryId: category.id
-    }, null, 8 /* PROPS */, ["products", "categoryId"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
+      category: category
+    }, null, 8 /* PROPS */, ["products", "category"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
   }), 128 /* KEYED_FRAGMENT */);
 }
 

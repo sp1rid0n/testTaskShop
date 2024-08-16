@@ -16,10 +16,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      product: [],
+      product: Object,
       categoryProduct: [],
       categories: [],
-      selected: ''
+      selected: null
     };
   },
   mounted: function mounted() {
@@ -41,7 +41,7 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {});
     },
     updateCategory: function updateCategory() {
-      axios__WEBPACK_IMPORTED_MODULE_0__["default"].put('/api/products/' + this.product.id + '/move-to-category/' + this.selected).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0__["default"].put('/api/products/' + this.product + '/move-to-category/' + this.selected).then(function (res) {
         alert('Категория-родитель успешна изменена, пожалуйста перезагрузите страницу');
       })["catch"](function (err) {
         alert('Произошла ошибка');
@@ -81,7 +81,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.categories, function (option) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
-      value: option.id
+      value: option
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(option.name), 9 /* TEXT, PROPS */, _hoisted_2);
   }), 256 /* UNKEYED_FRAGMENT */))], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, _ctx.selected]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
